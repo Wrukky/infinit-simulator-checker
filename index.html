@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinit Labs Yapper Checker</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #1a1a2e, #16213e);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+    }
+    input, button, select {
+      padding: 0.8rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+      width: 100%;
+      border: none;
+      border-radius: 0.5rem;
+    }
+    button {
+      background-color: #ff0080;
+      color: white;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .status {
+      font-size: 2rem;
+    }
+    .tokens {
+      font-size: 1.5rem;
+      margin: 0.5rem 0;
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Infinit Labs Yapper Checker </h1>
+    <p>Enter your Twitter handle and simulate your @Infinit_Labs activity check!</p>
+
+    <input type="text" id="handle" placeholder="@yourhandle">
+
+    <label for="activity">How many tweets about @Infinit_Labs this week?</label>
+    <select id="activity">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5+</option>
+      <option value="5">10+</option>
+      <option value="5">20+</option>
+    </select>
+
+    <button onclick="checkActivity()">Check Now</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function checkActivity() {
+  const handle = document.getElementById("handle").value.trim();
+  const activity = parseInt(document.getElementById("activity").value);
+  const result = document.getElementById("result");
+
+  if (!handle || !handle.startsWith("@")) {
+    result.innerHTML = "<div class='status'>❗ Invalid handle</div><div>Please enter a valid Twitter handle starting with @</div>";
+    return;
+  }
+
+  if (handle !== "@wru_kii" && result.innerHTML !== "") {
+    result.innerHTML += "<div style='margin-top: 1rem; color: #ff3399;'>You've already been yapped. This is your final result 🧾</div>";
+    return;
+  }
+
+  let status = "";
+  let message = "";
+  let tokens = 0;
+
+  const roll = Math.random();
+  if (roll > 0.66) {
+    status = "✅ Active Yapper";
+    tokens = getRandomInt(3000, 6000);
+    message = `${handle} is yapping hard! Infinit Labs sees you 🚀`;
+  } else if (roll > 0.33) {
+    status = "⚠️ Low Effort Detected";
+    tokens = getRandomInt(500, 2999);
+    message = `${handle} is trying... but can yap harder 🔥`;
+  } else {
+    status = "❌ Not Active – Start Yapping!";
+    tokens = getRandomInt(50, 499);
+    message = `${handle}, tweet more about @Infinit_Labs to rank up 💬`;
+  }
+
+  result.innerHTML = `
+    <div class='status'>${status}</div>
+    <div class='tokens'>You earned ${tokens.toLocaleString()} $IN</div>
+    <div>${message}</div><br>
+    <a href='https://twitter.com/intent/tweet?text=I%20just%20checked%20my%20Infinit%20Labs%20Yapper%20status%20using%20the%20@Infinit_Labs%20simulator!%20${encodeURIComponent(status)}%20and%20got%20${tokens}%20$IN%20🐤&hashtags=Yapper,InfinitLabs' target='_blank'>
+      <button>Tweet your result</button>
+    </a>`;
+}
+  </script>
+
+  <p style="margin-top: 3rem; font-size: 0.9rem; color: #bbb;">
+    Created by <a href="https://twitter.com/wru_kii" target="_blank" style="color: #ff66cc; text-decoration: none;">@wru_kii</a>
+  </p>
+</body>
+</html>
